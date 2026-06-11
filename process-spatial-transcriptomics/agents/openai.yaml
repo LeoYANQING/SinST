@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spatial Transcriptomics Pipeline"
+  short_description: "Audit and preprocess spatial transcriptomics datasets"
+  default_prompt: "Use $process-spatial-transcriptomics to audit and preprocess this spatial transcriptomics dataset into a validated AnnData output."

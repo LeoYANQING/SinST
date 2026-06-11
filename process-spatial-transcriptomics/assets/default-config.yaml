@@ -1,0 +1,100 @@
+profile: generic
+
+canonical:
+  sample_key: auto
+  batch_key: auto
+  time_key: auto
+  time_mapping: {}
+  time_regex: null
+  time_regex_source: sample_id
+  spatial_key: auto
+  gene_symbol_column: auto
+
+expression:
+  counts_layer: counts
+  target_sum: 10000
+  hvg:
+    n_top_genes: 2000
+    flavor: seurat
+    batch_key: batch
+
+qc:
+  min_genes: 100
+  min_cells: 3
+  min_counts: null
+  max_genes: null
+  max_counts: null
+  max_pct_mt: 20
+  mitochondrial_prefixes:
+    - MT-
+    - MT_
+  mitochondrial_genes: []
+
+embedding:
+  n_pcs: 50
+  scale_max_value: 10
+  neighbors:
+    n_neighbors: 15
+    n_pcs: 30
+  umap:
+    min_dist: 0.5
+  leiden:
+    enabled: true
+    resolution: 1.0
+    flavor: igraph
+    n_iterations: 2
+
+spatial:
+  required: true
+  method: delaunay
+  n_neighbors: 6
+  distance_prune_quantile: 0.99
+
+integration:
+  method: none
+  note: Never batch-correct automatically when batch is nested in time.
+
+runtime:
+  random_seed: 0
+
+output:
+  h5ad_name: processed.h5ad
+  report_name: report.html
+
+profiles:
+  generic: {}
+
+  axolotl-stereoseq:
+    canonical:
+      sample_key: Batch
+      batch_key: Batch
+      time_key: auto
+      time_regex: '(?i)(\d+(?:\.\d+)?)DPI'
+      time_regex_source: sample_id
+      spatial_key: spatial
+      gene_symbol_column: Gene
+    qc:
+      min_genes: 100
+      min_cells: 3
+      max_pct_mt: null
+      mitochondrial_prefixes:
+        - MT-
+        - MT_
+      mitochondrial_genes: []
+    spatial:
+      method: delaunay
+      distance_prune_quantile: 0.95
+
+  visium:
+    canonical:
+      sample_key: library_id
+      batch_key: library_id
+      spatial_key: spatial
+      gene_symbol_column: gene_symbols
+    qc:
+      min_genes: 200
+      min_cells: 3
+    spatial:
+      method: knn
+      n_neighbors: 6
+      distance_prune_quantile: null
