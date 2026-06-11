@@ -330,3 +330,7 @@ For detailed policies, see:
 - No automatic doublet detection.
 - No automatic batch integration.
 - No spatial autocorrelation or Moran's I stage yet.
+
+## License
+
+SinST is released under the [MIT License](LICENSE).

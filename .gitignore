@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environments
+.venv/
+venv/
+env/
+
+# Local pipeline outputs and large datasets
+results/
+outputs/
+*.h5ad
+*.h5
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
